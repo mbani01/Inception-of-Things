@@ -13,7 +13,6 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
- 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
     vb.cpus = 1
@@ -22,7 +21,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "mbaniS" do |control|
     control.vm.hostname = "mbaniS"
-    # control.vm.network "private_network", ip: "192.168.42.110"
+    control.vm.network "private_network", ip: "192.168.42.110"
     control.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--name", "mbaniS"]
     # [...]
