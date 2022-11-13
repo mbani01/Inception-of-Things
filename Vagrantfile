@@ -16,11 +16,22 @@ Vagrant.configure("2") do |config|
  
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
-        vb.cpus = 1
+    vb.cpus = 1
   end
 
 
-
+  config.vm.define "mbaniS" do |control|
+    control.vm.hostname = "mbaniS"
+    # control.vm.network "private_network", ip: "192.168.42.110"
+    control.vm.provider "virtualbox" do |v|
+    v.customize ["modifyvm", :id, "--name", "mbaniS"]
+    # [...]
+    end 
+    # config.vm.provision :shell, :inline => SHELL
+    # [...]
+    # SHELL
+    # control.vm.provision "shell", path: REDACTED
+  end
 
 
 
