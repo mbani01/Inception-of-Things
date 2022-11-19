@@ -13,8 +13,10 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
+  config.vm.box_url = "https://vagrantcloud.com/hashicorp/bionic64"
+
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
+    vb.memory = "512"
     vb.cpus = 1
   end
 
@@ -23,7 +25,21 @@ Vagrant.configure("2") do |config|
     control.vm.hostname = "mbaniS"
     control.vm.network "private_network", ip: "192.168.42.110"
     control.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--name", "mbaniS"]
+    config.vm.network "forwarded_port", guest: 6443, host: 6643
+      v.customize ["modifyvm", :id, "--name", "mbaniS"]
+    # [...]
+    end 
+    config.vm.provision "shell", path: "k3s_server.sh"
+    # [...]
+    # SHELL
+    # control.vm.provision "shell", path: REDACTED
+  end
+
+  config.vm.define "mbaniSW" do |control|
+    control.vm.hostname = "mbaniSW"
+    control.vm.network "private_network", ip: "192.168.56.111"
+    control.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--name", "mbaniSW"]
     # [...]
     end 
     # config.vm.provision :shell, :inline => SHELL
@@ -31,7 +47,6 @@ Vagrant.configure("2") do |config|
     # SHELL
     # control.vm.provision "shell", path: REDACTED
   end
-
 
 
   # Disable automatic box update checking. If you disable this, then
