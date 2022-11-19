@@ -41,8 +41,8 @@ Vagrant.configure("2") do |config|
     control.vm.provider "virtualbox" do |v|
       v.customize ["modifyvm", :id, "--name", "mbaniSW"]
     # [...]
-    end 
-    # config.vm.provision :shell, :inline => SHELL
+    end
+    control.vm.provision "shell", path: "k3s_worker.sh"
     # [...]
     # SHELL
     # control.vm.provision "shell", path: REDACTED
