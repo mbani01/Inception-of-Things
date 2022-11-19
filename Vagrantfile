@@ -25,11 +25,11 @@ Vagrant.configure("2") do |config|
     control.vm.hostname = "mbaniS"
     control.vm.network "private_network", ip: "192.168.42.110"
     control.vm.provider "virtualbox" do |v|
-    config.vm.network "forwarded_port", guest: 6443, host: 6643
+    control.vm.network "forwarded_port", guest: 6443, host: 6643
       v.customize ["modifyvm", :id, "--name", "mbaniS"]
     # [...]
     end 
-    config.vm.provision "shell", path: "k3s_server.sh"
+    control.vm.provision "shell", path: "k3s_server.sh"
     # [...]
     # SHELL
     # control.vm.provision "shell", path: REDACTED
