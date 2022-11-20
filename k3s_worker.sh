@@ -1,3 +1,9 @@
-k3s_url="https://192.168.42.110:6443"
-k3s_token=$(cat /vagrant/server_token)
-curl -sfL https://get.k3s.io | K3S_URL=${k3s_url} K3S_TOKEN=${k3s_token} sh -
+server_ip=$1
+
+k3s_token_file="/vagrant_data/server_token"
+server_url="https://${server_ip}:6443"
+sudo touch /etc/profile.d/vars.sh
+echo "export K3S_TOKEN_FILE=${k3s_token_file}" >> /etc/profile.d/vars.sh
+echo "export K3S_URL=${server_url}" >> /etc/profile.d/vars.sh
+export INSTALL_K3S_EXEC="--flannel-iface=eth1"
+curl -sfL https://get.k3s.io | sh - && echo "K3s Agent is Running ....................>_<"
