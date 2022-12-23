@@ -21,13 +21,15 @@ spec:
           env:
           - name: MESSAGE
             value: "Hello from app2"
+          - name: PORT
+            value: "80"
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: app2
+  name: app-two
   labels:
     run: app2
 spec:
