@@ -15,7 +15,7 @@ spec:
         - name: app3
           image: paulbouwer/hello-kubernetes:1
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
           env:
           - name: MESSAGE
@@ -31,7 +31,7 @@ metadata:
     run: app3
 spec:
   ports:
-  - port: 8080
+  - port: 80
     protocol: TCP
   selector:
     run: app3
