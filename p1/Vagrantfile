@@ -9,16 +9,6 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
 
-  # Disable the default synced_folder to avoid getting log files from guest machine
-  config.vm.synced_folder ".", "/vagrant", disabled: true
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  config.vm.synced_folder "./shared", "/vagrant_data", disabled: false
-
-
   # Server machine configuration
   config.vm.define "mbaniS" do |control|
     control.vm.hostname = "mbaniS"
@@ -29,7 +19,7 @@ Vagrant.configure("2") do |config|
         v.memory = '1024'
         v.cpus = 1
       end 
-    control.vm.provision "shell", path: "k3s_server.sh", args: [server_ip]
+    control.vm.provision "shell", path: "scripts/k3s_server.sh", args: [server_ip]
   end
 
   # Agent machine configuration
@@ -41,7 +31,7 @@ Vagrant.configure("2") do |config|
       v.memory = '521'
       v.cpus = 1
     end
-    control.vm.provision "shell", path: "k3s_worker.sh", args: [server_ip]
+    control.vm.provision "shell", path: "scripts/k3s_worker.sh", args: [server_ip]
   end
 
 end
