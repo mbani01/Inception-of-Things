@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "mbaniS" do |control|
     control.vm.hostname = "mbaniS"
     control.vm.network "private_network", ip: server_ip
-    control.vm.network "forwarded_port", guest: 6443, host: 6643
+    control.vm.network "forwarded_port", guest: 6443, host: 6443
     control.vm.network "forwarded_port", guest: 80, host: 80
       control.vm.provider "virtualbox" do |v|
         v.customize ["modifyvm", :id, "--name", "mbaniS"]
