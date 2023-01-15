@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server-ingress
+  labels:
+    traefik.ingress.kubernetes.io/service: argocd-server
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: PathPrefix(`/argocd`)
+    kind: Rule
+    services:
+    - name: argocd-server
+      port: http
