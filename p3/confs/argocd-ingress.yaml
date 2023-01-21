@@ -1,15 +1,23 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: getambassador.io/v2
+kind: Mapping
 metadata:
-  name: argocd-server-ingress
-  labels:
-    traefik.ingress.kubernetes.io/service: argocd-server
+  name: argocd-server-ui
+  namespace: argocd
 spec:
-  entryPoints:
-    - web
-  routes:
-  - match: PathPrefix(`/argocd`)
-    kind: Rule
-    services:
-    - name: argocd-server
-      port: http
+  host: 
+  prefix: /
+  service: argocd-server:443
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: argocd-server-cli
+  namespace: argocd
+spec:
+  # NOTE: the port must be ignored if you have strip_matching_host_port enabled on envoy
+  host: :443
+  prefix: /
+  service: argocd-server:80
+  regex_headers:
+    Content-Type: "^application/grpc.*$"
+  grpc: true

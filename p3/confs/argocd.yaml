@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mbani-iot
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mbani01/mbani-iot
+    targetRevision: HEAD
+    path: manifests
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
