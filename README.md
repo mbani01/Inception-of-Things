@@ -29,3 +29,24 @@ Here is a small example diagram:
 
 When a client inputs the IP 192.168.56.110 in his web browser with the HOST app1.com,
 the server must display the app1. When the HOST app2.com is used, the server must display the app2. Otherwise, the app3 will be selected by default.
+
+# [Part 3: K3d and Argo CD](https://github.com/mbani01/Inception-of-Things/tree/main/p3)
+
+In Part 3, we will set up a k3d cluster on a virtual machine without using Vagrant. We will also implement continuous integration using Argo CD and deploy and update an application from a public GitHub repository, following the logic illustrated by the diagram below: 
+
+<p align="center">
+  <img src="https://github.com/mbani01/Inception-of-Things/blob/main/assests/K3d_and_Argo_CD.png" alt="K3s_and_three_simple_applications">
+</p>
+
+To set up K3d and Argo CD, follow these steps:
+
+1. Run the `install.sh` script to install necessary packages and tools.
+2. Run the `start.sh` script to set up the k3d cluster and argocd.
+
+This will create two namespaces:
+- The first one will be dedicated to Argo CD.
+- The second one will be named "dev" and will contain an application.
+
+The application will be automatically deployed by Argo CD using the repository https://github.com/mbani01/mbani-iot. The application has two different versions.
+
+You can change the version from the public Github repository https://github.com/mbani01/mbani-iot and check that the application has been correctly updated.
